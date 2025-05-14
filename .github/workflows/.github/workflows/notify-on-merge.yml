@@ -1,0 +1,32 @@
+name: Notify Gmail on Merge to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Email Notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.EMAIL_SERVER }}
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: '✅ Branch Merged to Main'
+          body: |
+            Hello,
+
+            A branch has been merged into `main` by ${{ github.actor }}.
+
+            📦 Repo: ${{ github.repository }}
+            🔗 Commit: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
+
+            Regards,
+            GitHub Actions Bot
+          to: ${{ secrets.EMAIL_TO }}
+          from: ${{ secrets.EMAIL_FROM }}
+          content_type: text/plain
