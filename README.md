@@ -1,4 +1,4 @@
-# branch-merge-notification-gmail-2
+# branch-merge-notification-gmail-3
 
 #  Setup Version Control System - GITHUB
 
