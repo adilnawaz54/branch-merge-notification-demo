@@ -12,11 +12,7 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - name: Notify via Slack
-        run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{"text":"PR #${{ github.event.pull_request.number }} was *merged* into `main` by ${{ github.actor }}"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL_BRANCH_MERGE }}
+     
 
       - name: Notify Stakeholders via Email
         uses: dawidd6/action-send-mail@v3
