@@ -6,7 +6,7 @@ on:
       - main
     types:
       - closed
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   notify:
@@ -20,32 +20,18 @@ jobs:
           --data '{"text":"PR #${{ github.event.pull_request.number }} was *merged* into `main` by ${{ github.actor }}"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      name: Notify on Merge to Main
-
-on:
-  pull_request:
-    branches:
-      - main
-    types:
-      - closed
-
-jobs:
-  notify:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    steps:
-     
-
       - name: Notify Stakeholders via Email
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 587
+          secure: false
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
           subject: "PR #${{ github.event.pull_request.number }} merged to main"
           body: |
             The following pull request has been merged into the main branch:
+
             Title: ${{ github.event.pull_request.title }}
             Author: ${{ github.event.pull_request.user.login }}
             Merged by: ${{ github.actor }}
